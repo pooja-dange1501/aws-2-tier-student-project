@@ -1,0 +1,29 @@
+<?php
+
+$servername = "RDS-ENDPOINT";
+$username = "admin";
+$password = "mypassword";
+$dbname = "studentdb";
+
+$conn = new mysqli($servername, $username, $password, $dbname);
+
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+}
+
+$name = $_POST['name'];
+$email = $_POST['email'];
+$course = $_POST['course'];
+$city = $_POST['city'];
+
+$sql = "INSERT INTO students (name, email, course, city) 
+        VALUES ('$name', '$email', '$course', '$city')";
+
+if ($conn->query($sql) === TRUE) {
+    echo "Student Registered Successfully!";
+} else {
+    echo "Error: " . $conn->error;
+}
+
+$conn->close();
+?>
